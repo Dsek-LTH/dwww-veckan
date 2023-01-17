@@ -1,4 +1,4 @@
-import knex from './database';
+import knex from '../database';
 
 import { Medal } from './types';
 
