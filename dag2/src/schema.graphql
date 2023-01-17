@@ -1,0 +1,11 @@
+type Query {
+  medals: [Medal!]!
+}
+
+type Medal {
+  id: Int!
+  name: String!
+  description: String!
+  image: String!
+  requirement: String!
+}
