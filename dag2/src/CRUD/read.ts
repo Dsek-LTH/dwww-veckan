@@ -2,9 +2,12 @@ import knex from '../database';
 
 import { Medal } from './types';
 
-async function readMedals() {
+export async function readAllMedals() {
   const medals = await knex<Medal>('medals').select('*');
-  console.log(medals);
+  return medals;
 }
 
-readMedals();
+export async function readOneMedal(id: number) {
+  const medal = await knex<Medal>('medals').select('*').where('id', id);
+  return medal[0];
+}

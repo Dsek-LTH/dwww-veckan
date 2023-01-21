@@ -2,12 +2,10 @@ import knex from '../database';
 
 import { Medal } from './types';
 
-async function deleteMedal(id: number) {
+export async function deleteMedal(id: number) {
   const medals = await knex<Medal>('medals')
     .where({ id: id })
     .del()
     .returning('*');
-  console.log(medals);
+  return medals[0];
 }
-
-deleteMedal(2);

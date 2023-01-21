@@ -1,8 +1,8 @@
-import knex from './database';
+import knex from '../database';
 
 import { Medal } from './types';
 
-async function createMedal(
+export async function createMedal(
   name: string,
   description: string,
   requirement: string,
@@ -16,12 +16,5 @@ async function createMedal(
       image,
     })
     .returning('*');
-  console.log(medals);
+  return medals[0];
 }
-
-createMedal(
-  'Ductig',
-  'Denna medalj får man om man är cool',
-  'är duktig',
-  './images/ductig.png'
-);

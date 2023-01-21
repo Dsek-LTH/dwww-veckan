@@ -12,10 +12,10 @@ const config = {
     charset: 'utf8',
   },
   migrations: {
-    directory: './knex/migrations',
+    directory: './src/knex/migrations',
   },
   seeds: {
-    directory: './knex/seeds',
+    directory: './src/knex/seeds',
   },
 };
 
