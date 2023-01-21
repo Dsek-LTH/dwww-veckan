@@ -15,7 +15,7 @@ const resolvers: Resolvers = {
   },
   Mutation: {
     createMedal: (_, { name, description, image, requirement }) => {
-      return createMedal(name, description, image, requirement);
+      return createMedal(name, description, requirement, image);
     },
     updateMedal: (_, { id, input }) => {
       return updateMedal(id, input);

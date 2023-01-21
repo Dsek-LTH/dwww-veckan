@@ -1,4 +1,3 @@
-import * as React from 'react';
 import Head from 'next/head';
 import { AppProps } from 'next/app';
 import { ThemeProvider } from '@mui/material/styles';
@@ -13,7 +12,7 @@ import {
 } from '@apollo/client';
 
 const client = new ApolloClient({
-  uri: 'https://flyby-gateway.herokuapp.com/',
+  uri: 'http://localhost:4000',
   cache: new InMemoryCache(),
 });
 

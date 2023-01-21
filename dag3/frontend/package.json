@@ -11,6 +11,7 @@
     "generate": "graphql-codegen --config codegen.yml"
   },
   "dependencies": {
+    "@apollo/client": "^3.7.4",
     "@emotion/cache": "latest",
     "@emotion/react": "latest",
     "@emotion/server": "latest",
@@ -19,7 +20,7 @@
     "@mui/material": "latest",
     "@next/font": "latest",
     "next": "latest",
-    "react": "latest",
+    "react": "^18.2.0",
     "react-dom": "latest"
   },
   "devDependencies": {

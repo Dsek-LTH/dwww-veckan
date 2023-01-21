@@ -73,6 +73,13 @@ export type AllMedalsQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type AllMedalsQuery = { __typename?: 'Query', medals: Array<{ __typename?: 'Medal', id: number, name: string, description: string, image: string, requirement: string }> };
 
+export type DeleteMedalMutationVariables = Exact<{
+  id: Scalars['Int'];
+}>;
+
+
+export type DeleteMedalMutation = { __typename?: 'Mutation', deleteMedal: { __typename?: 'Medal', id: number, name: string } };
+
 
 export const AllMedalsDocument = gql`
     query AllMedals {
@@ -112,3 +119,37 @@ export function useAllMedalsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<
 export type AllMedalsQueryHookResult = ReturnType<typeof useAllMedalsQuery>;
 export type AllMedalsLazyQueryHookResult = ReturnType<typeof useAllMedalsLazyQuery>;
 export type AllMedalsQueryResult = Apollo.QueryResult<AllMedalsQuery, AllMedalsQueryVariables>;
+export const DeleteMedalDocument = gql`
+    mutation DeleteMedal($id: Int!) {
+  deleteMedal(id: $id) {
+    id
+    name
+  }
+}
+    `;
+export type DeleteMedalMutationFn = Apollo.MutationFunction<DeleteMedalMutation, DeleteMedalMutationVariables>;
+
+/**
+ * __useDeleteMedalMutation__
+ *
+ * To run a mutation, you first call `useDeleteMedalMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useDeleteMedalMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [deleteMedalMutation, { data, loading, error }] = useDeleteMedalMutation({
+ *   variables: {
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function useDeleteMedalMutation(baseOptions?: Apollo.MutationHookOptions<DeleteMedalMutation, DeleteMedalMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<DeleteMedalMutation, DeleteMedalMutationVariables>(DeleteMedalDocument, options);
+      }
+export type DeleteMedalMutationHookResult = ReturnType<typeof useDeleteMedalMutation>;
+export type DeleteMedalMutationResult = Apollo.MutationResult<DeleteMedalMutation>;
+export type DeleteMedalMutationOptions = Apollo.BaseMutationOptions<DeleteMedalMutation, DeleteMedalMutationVariables>;

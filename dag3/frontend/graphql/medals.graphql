@@ -7,3 +7,10 @@ query AllMedals {
     requirement
   }
 }
+
+mutation DeleteMedal ($id: Int!) {
+  deleteMedal(id: $id) {
+    id
+    name
+  }
+} 
