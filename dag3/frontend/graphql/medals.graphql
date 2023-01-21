@@ -1,0 +1,9 @@
+query AllMedals {
+  medals {
+    id
+    name
+    description
+    image
+    requirement
+  }
+}
