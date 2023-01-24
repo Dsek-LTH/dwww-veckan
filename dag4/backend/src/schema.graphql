@@ -1,0 +1,25 @@
+type Query {
+  medals: [Medal!]!
+  medal(id: Int!): Medal
+}
+
+type Mutation {
+  createMedal(name: String!, description: String!, image: String!, requirement: String!): Medal!
+  updateMedal(id: Int!, input: UpdateMedal!): Medal!
+  deleteMedal(id: Int!): Medal!
+}
+
+type Medal {
+  id: Int!
+  name: String!
+  description: String!
+  image: String!
+  requirement: String!
+}
+
+input UpdateMedal {
+  name: String
+  description: String
+  image: String
+  requirement: String
+}
