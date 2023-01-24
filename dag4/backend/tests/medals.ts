@@ -20,12 +20,18 @@ const medals = [
     image: 'bild3',
     requirement: 'You must be the third best',
   },
+  {
+    name: 'Fourth',
+    description: 'Fourth medal',
+    image: 'bild4',
+    requirement: 'You must be the fourth best',
+  },
 ];
 
 export const medalToCreate = {
   name: 'New medal',
   description: 'New medal description',
-  image: 'bild4',
+  image: 'bild5',
   requirement: 'You must be the fourth best',
 };
 
