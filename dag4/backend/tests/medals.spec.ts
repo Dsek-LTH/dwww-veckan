@@ -56,49 +56,67 @@ describe('Medals', () => {
     }
   });
 
-  describe('Update medal', () => {
-    it('updates all fields', async () => {
-      const { body } = await server.executeOperation({
-        query: updateMedal,
-        variables: {
-          id: 1,
-          input: {
-            name: 'Updated name',
-            description: 'Updated description',
-            image: 'Updated image',
-            requirement: 'Updated requirement',
-          },
-        },
-      });
-      if (body.kind === 'single') {
-        expect(
-          body.singleResult.errors,
-          JSON.stringify(body.singleResult.errors)
-        ).to.be.undefined;
-        expect(body.singleResult.data?.updateMedal).to.deep.equal({
+  it('updates all fields', async () => {
+    const { body } = await server.executeOperation({
+      query: updateMedal,
+      variables: {
+        id: 1,
+        input: {
           name: 'Updated name',
           description: 'Updated description',
           image: 'Updated image',
           requirement: 'Updated requirement',
-        });
-      }
-    });
-
-    it('updates no fields', async () => {
-      const { body } = await server.executeOperation({
-        query: updateMedal,
-        variables: {
-          id: 1,
-          input: {},
         },
-      });
-      if (body.kind === 'single') {
-        expect(
-          body.singleResult.errors?.[0].message,
-          'Should throw an error'
-        ).to.equal('No data to update');
-        expect(body.singleResult.data).to.be.null;
-      }
+      },
     });
+    if (body.kind === 'single') {
+      expect(body.singleResult.errors, JSON.stringify(body.singleResult.errors))
+        .to.be.undefined;
+      expect(body.singleResult.data?.updateMedal).to.deep.equal({
+        name: 'Updated name',
+        description: 'Updated description',
+        image: 'Updated image',
+        requirement: 'Updated requirement',
+      });
+    }
+  });
+
+  it('updates no fields', async () => {
+    const { body } = await server.executeOperation({
+      query: updateMedal,
+      variables: {
+        id: 1,
+        input: {},
+      },
+    });
+    if (body.kind === 'single') {
+      expect(
+        body.singleResult.errors?.[0].message,
+        'Should throw an error'
+      ).to.equal('No data to update');
+    }
+  });
+
+  it('updates two fields', async () => {
+    const { body } = await server.executeOperation({
+      query: updateMedal,
+      variables: {
+        id: 1,
+        input: {
+          name: 'Updated name',
+          description: 'Updated description',
+        },
+      },
+    });
+    if (body.kind === 'single') {
+      expect(body.singleResult.errors, JSON.stringify(body.singleResult.errors))
+        .to.be.undefined;
+      expect(body.singleResult.data?.updateMedal).to.deep.equal({
+        name: 'Updated name',
+        description: 'Updated description',
+        image: medals[0].image,
+        requirement: medals[0].requirement,
+      });
+    }
   });
 });
