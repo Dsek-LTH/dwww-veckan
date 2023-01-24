@@ -23,3 +23,5 @@ const medals: Medal[] = [
     requirement: 'You must be the third best',
   },
 ];
+
+export default medals;
