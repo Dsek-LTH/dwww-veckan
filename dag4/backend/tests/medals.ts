@@ -1,22 +1,20 @@
 import { Medal } from '../src/CRUD/types';
 
-const medals: Medal[] = [
+// Medal ommiting id
+const medals = [
   {
-    id: 1,
     name: 'Gold',
     description: 'Gold medal',
     image: 'bild1',
     requirement: 'You must be the best',
   },
   {
-    id: 2,
     name: 'Silver',
     description: 'Silver medal',
     image: 'bild2',
     requirement: 'You must be the second best',
   },
   {
-    id: 3,
     name: 'Bronze',
     description: 'Bronze medal',
     image: 'bild3',
@@ -24,8 +22,7 @@ const medals: Medal[] = [
   },
 ];
 
-export const medalToCreate: Medal = {
-  id: 4,
+export const medalToCreate = {
   name: 'New medal',
   description: 'New medal description',
   image: 'bild4',

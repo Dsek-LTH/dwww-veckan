@@ -9,8 +9,8 @@ import { createMedal, readAllMedals } from './queries';
 describe('Medals', () => {
   const server = createApolloServer();
 
-  before(async () => {
-    await knex('medals').del().truncate();
+  beforeEach(async () => {
+    await knex('medals').truncate();
     await knex('medals').insert(medals);
   });
 
