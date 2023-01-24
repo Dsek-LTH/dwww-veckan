@@ -5,6 +5,9 @@ import createApolloServer from '../src/createApolloServer';
 
 describe('Medals', () => {
   const server = createApolloServer();
+
+  before(async () => {});
+
   it('fetches all medals', async () => {
     const { body } = await server.executeOperation({
       query: `
