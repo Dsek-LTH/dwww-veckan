@@ -4,7 +4,12 @@ import spies from 'chai-spies';
 import createApolloServer from '../src/createApolloServer';
 import knex from '../src/database';
 import medals, { medalToCreate } from './medals';
-import { createMedal, readAllMedals, updateMedal } from './queries';
+import {
+  createMedal,
+  deleteMedal,
+  readAllMedals,
+  updateMedal,
+} from './queries';
 
 describe('Medals', () => {
   const server = createApolloServer();
@@ -14,18 +19,7 @@ describe('Medals', () => {
     await knex('medals').insert(medals);
   });
 
-  it('fetches all medals', async () => {
-    const { body } = await server.executeOperation({
-      query: readAllMedals,
-    });
-    if (body.kind === 'single') {
-      expect(body.singleResult.errors, JSON.stringify(body.singleResult.errors))
-        .to.be.undefined;
-      expect(body.singleResult.data?.medals).to.deep.equal(medals);
-    }
-  });
-
-  it('creates a medal', async () => {
+  it('Creates a medal', async () => {
     const { body } = await server.executeOperation({
       query: createMedal,
       variables: {
@@ -56,7 +50,18 @@ describe('Medals', () => {
     }
   });
 
-  it('updates all fields', async () => {
+  it('Reads all medals', async () => {
+    const { body } = await server.executeOperation({
+      query: readAllMedals,
+    });
+    if (body.kind === 'single') {
+      expect(body.singleResult.errors, JSON.stringify(body.singleResult.errors))
+        .to.be.undefined;
+      expect(body.singleResult.data?.medals).to.deep.equal(medals);
+    }
+  });
+
+  it('Updates all fields', async () => {
     const { body } = await server.executeOperation({
       query: updateMedal,
       variables: {
@@ -139,6 +144,20 @@ describe('Medals', () => {
         image: medals[0].image,
         requirement: medals[0].requirement,
       });
+    }
+  });
+
+  it('deletes a medal', async () => {
+    const { body } = await server.executeOperation({
+      query: deleteMedal,
+      variables: {
+        id: 1,
+      },
+    });
+    if (body.kind === 'single') {
+      expect(body.singleResult.errors, JSON.stringify(body.singleResult.errors))
+        .to.be.undefined;
+      expect(body.singleResult.data?.deleteMedal).to.deep.equal(medals[0]);
     }
   });
 });

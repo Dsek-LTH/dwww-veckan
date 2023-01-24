@@ -30,3 +30,14 @@ mutation($id: Int!, $input: UpdateMedal!) {
   }
 }
 `;
+
+export const deleteMedal = `
+mutation DeleteMedal ($id: Int!) {
+  deleteMedal(id: $id) {
+    name
+    description
+    image
+    requirement
+  }
+} 
+`;
