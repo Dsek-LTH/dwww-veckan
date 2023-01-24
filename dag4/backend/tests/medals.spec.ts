@@ -94,15 +94,10 @@ describe('Medals', () => {
       });
       if (body.kind === 'single') {
         expect(
-          body.singleResult.errors,
-          JSON.stringify(body.singleResult.errors)
-        ).to.be.undefined;
-        expect(body.singleResult.data?.updateMedal).to.deep.equal({
-          name: 'Updated name',
-          description: 'Updated description',
-          image: 'Updated image',
-          requirement: 'Updated requirement',
-        });
+          body.singleResult.errors?.[0].message,
+          'Should throw an error'
+        ).to.equal('No data to update');
+        expect(body.singleResult.data).to.be.null;
       }
     });
   });
