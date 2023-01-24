@@ -83,5 +83,27 @@ describe('Medals', () => {
         });
       }
     });
+
+    it('updates no fields', async () => {
+      const { body } = await server.executeOperation({
+        query: updateMedal,
+        variables: {
+          id: 1,
+          input: {},
+        },
+      });
+      if (body.kind === 'single') {
+        expect(
+          body.singleResult.errors,
+          JSON.stringify(body.singleResult.errors)
+        ).to.be.undefined;
+        expect(body.singleResult.data?.updateMedal).to.deep.equal({
+          name: 'Updated name',
+          description: 'Updated description',
+          image: 'Updated image',
+          requirement: 'Updated requirement',
+        });
+      }
+    });
   });
 });
