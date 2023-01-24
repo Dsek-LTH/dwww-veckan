@@ -1,15 +1,7 @@
-import { readFileSync } from 'fs';
-import { ApolloServer } from '@apollo/server';
 import { startStandaloneServer } from '@apollo/server/standalone';
-import { resolve } from 'path';
-import resolvers from './resolvers';
+import createApolloServer from './createApolloServer';
 
-const typeDefs = readFileSync(resolve(__dirname, './schema.graphql'), 'utf8');
-
-const server = new ApolloServer<{}>({
-  typeDefs,
-  resolvers,
-});
+const server = createApolloServer();
 
 startStandaloneServer(server, { listen: { port: 4000 } }).then(({ url }) => {
   console.log(`🚀 Server ready at ${url}`);
