@@ -55,4 +55,10 @@ describe('Medals', () => {
       }
     }
   });
+
+  describe('Update medal', () => {
+    it('updates all fields', async () => {
+      const { body };
+    });
+  });
 });
