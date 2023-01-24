@@ -24,4 +24,12 @@ const medals: Medal[] = [
   },
 ];
 
+export const medalToCreate: Medal = {
+  id: 4,
+  name: 'New medal',
+  description: 'New medal description',
+  image: 'bild4',
+  requirement: 'You must be the fourth best',
+};
+
 export default medals;
