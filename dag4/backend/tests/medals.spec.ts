@@ -5,8 +5,8 @@ import createApolloServer from '../src/createApolloServer';
 
 describe('Medals', () => {
   const server = createApolloServer();
-  it('should be a test', async () => {
-    const response = await server.executeOperation({
+  it('fetches all medals', async () => {
+    const { body } = await server.executeOperation({
       query: `
       query {
         medals {
@@ -15,8 +15,9 @@ describe('Medals', () => {
       }
       `,
     });
-    if (response.body.kind === 'single') {
-      expect(response.body.singleResult.errors).to.be.undefined;
+    if (body.kind === 'single') {
+      expect(body.singleResult.errors, JSON.stringify(body.singleResult.errors))
+        .to.be.undefined;
     }
   });
 });
