@@ -39,6 +39,20 @@ describe('Medals', () => {
       expect(body.singleResult.errors, JSON.stringify(body.singleResult.errors))
         .to.be.undefined;
       expect(body.singleResult.data?.createMedal).to.deep.equal(medalToCreate);
+
+      const { body: readBody } = await server.executeOperation({
+        query: readAllMedals,
+      });
+      if (readBody.kind === 'single') {
+        expect(
+          readBody.singleResult.errors,
+          JSON.stringify(readBody.singleResult.errors)
+        ).to.be.undefined;
+        expect(readBody.singleResult.data?.medals).to.deep.equal([
+          ...medals,
+          medalToCreate,
+        ]);
+      }
     }
   });
 });

@@ -8,7 +8,6 @@ export async function createMedal(
   requirement: string,
   image: string
 ) {
-  console.log(name, description, requirement, image);
   const medals = await knex<Medal>('medals')
     .insert({
       name,
