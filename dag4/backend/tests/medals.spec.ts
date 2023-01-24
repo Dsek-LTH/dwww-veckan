@@ -4,7 +4,7 @@ import spies from 'chai-spies';
 import createApolloServer from '../src/createApolloServer';
 import knex from '../src/database';
 import medals, { medalToCreate } from './medals';
-import { createMedal, readAllMedals } from './queries';
+import { createMedal, readAllMedals, updateMedal } from './queries';
 
 describe('Medals', () => {
   const server = createApolloServer();
@@ -58,7 +58,30 @@ describe('Medals', () => {
 
   describe('Update medal', () => {
     it('updates all fields', async () => {
-      const { body };
+      const { body } = await server.executeOperation({
+        query: updateMedal,
+        variables: {
+          id: 1,
+          input: {
+            name: 'Updated name',
+            description: 'Updated description',
+            image: 'Updated image',
+            requirement: 'Updated requirement',
+          },
+        },
+      });
+      if (body.kind === 'single') {
+        expect(
+          body.singleResult.errors,
+          JSON.stringify(body.singleResult.errors)
+        ).to.be.undefined;
+        expect(body.singleResult.data?.updateMedal).to.deep.equal({
+          name: 'Updated name',
+          description: 'Updated description',
+          image: 'Updated image',
+          requirement: 'Updated requirement',
+        });
+      }
     });
   });
 });
