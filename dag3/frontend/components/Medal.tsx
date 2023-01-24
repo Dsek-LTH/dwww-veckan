@@ -5,6 +5,7 @@ import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import { Medal, useAllMedalsQuery, useDeleteMedalMutation } from '../graphql/generated';
+import Link from 'next/link';
 
 export default function MedalComponent({ medal }: { medal: Medal }) {
   const { refetch } = useAllMedalsQuery();
@@ -25,7 +26,10 @@ export default function MedalComponent({ medal }: { medal: Medal }) {
         </Typography>
       </CardContent>
       <CardActions>
-        <Button size="small">Edit</Button>
+        <Link href={`/medaljer/${medal.id}`}>
+          <Button size="small" variant="contained">Read more</Button>
+        </Link>
+        <Button size="small" variant="outlined">Edit</Button>
         <Button size="small" color="error" variant="contained" onClick={() => {
           deleteMedal({ variables: { id: medal.id } })
             .then(() => refetch());

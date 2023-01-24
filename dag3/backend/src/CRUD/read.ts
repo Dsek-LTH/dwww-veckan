@@ -8,6 +8,6 @@ export async function readAllMedals() {
 }
 
 export async function readOneMedal(id: number) {
-  const medal = await knex<Medal>('medals').select('*').where('id', id);
+  const medal = await knex<Medal>('medals').select('*').where({ id });
   return medal[0];
 }

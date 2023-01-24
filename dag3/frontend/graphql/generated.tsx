@@ -80,6 +80,23 @@ export type DeleteMedalMutationVariables = Exact<{
 
 export type DeleteMedalMutation = { __typename?: 'Mutation', deleteMedal: { __typename?: 'Medal', id: number, name: string } };
 
+export type OneMedalQueryVariables = Exact<{
+  id: Scalars['Int'];
+}>;
+
+
+export type OneMedalQuery = { __typename?: 'Query', medal?: { __typename?: 'Medal', id: number, name: string, description: string, image: string, requirement: string } | null };
+
+export type CreateMedalMutationVariables = Exact<{
+  name: Scalars['String'];
+  description: Scalars['String'];
+  image: Scalars['String'];
+  requirement: Scalars['String'];
+}>;
+
+
+export type CreateMedalMutation = { __typename?: 'Mutation', createMedal: { __typename?: 'Medal', id: number, name: string } };
+
 
 export const AllMedalsDocument = gql`
     query AllMedals {
@@ -153,3 +170,84 @@ export function useDeleteMedalMutation(baseOptions?: Apollo.MutationHookOptions<
 export type DeleteMedalMutationHookResult = ReturnType<typeof useDeleteMedalMutation>;
 export type DeleteMedalMutationResult = Apollo.MutationResult<DeleteMedalMutation>;
 export type DeleteMedalMutationOptions = Apollo.BaseMutationOptions<DeleteMedalMutation, DeleteMedalMutationVariables>;
+export const OneMedalDocument = gql`
+    query OneMedal($id: Int!) {
+  medal(id: $id) {
+    id
+    name
+    description
+    image
+    requirement
+  }
+}
+    `;
+
+/**
+ * __useOneMedalQuery__
+ *
+ * To run a query within a React component, call `useOneMedalQuery` and pass it any options that fit your needs.
+ * When your component renders, `useOneMedalQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useOneMedalQuery({
+ *   variables: {
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function useOneMedalQuery(baseOptions: Apollo.QueryHookOptions<OneMedalQuery, OneMedalQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<OneMedalQuery, OneMedalQueryVariables>(OneMedalDocument, options);
+      }
+export function useOneMedalLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<OneMedalQuery, OneMedalQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<OneMedalQuery, OneMedalQueryVariables>(OneMedalDocument, options);
+        }
+export type OneMedalQueryHookResult = ReturnType<typeof useOneMedalQuery>;
+export type OneMedalLazyQueryHookResult = ReturnType<typeof useOneMedalLazyQuery>;
+export type OneMedalQueryResult = Apollo.QueryResult<OneMedalQuery, OneMedalQueryVariables>;
+export const CreateMedalDocument = gql`
+    mutation CreateMedal($name: String!, $description: String!, $image: String!, $requirement: String!) {
+  createMedal(
+    name: $name
+    description: $description
+    image: $image
+    requirement: $requirement
+  ) {
+    id
+    name
+  }
+}
+    `;
+export type CreateMedalMutationFn = Apollo.MutationFunction<CreateMedalMutation, CreateMedalMutationVariables>;
+
+/**
+ * __useCreateMedalMutation__
+ *
+ * To run a mutation, you first call `useCreateMedalMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateMedalMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createMedalMutation, { data, loading, error }] = useCreateMedalMutation({
+ *   variables: {
+ *      name: // value for 'name'
+ *      description: // value for 'description'
+ *      image: // value for 'image'
+ *      requirement: // value for 'requirement'
+ *   },
+ * });
+ */
+export function useCreateMedalMutation(baseOptions?: Apollo.MutationHookOptions<CreateMedalMutation, CreateMedalMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<CreateMedalMutation, CreateMedalMutationVariables>(CreateMedalDocument, options);
+      }
+export type CreateMedalMutationHookResult = ReturnType<typeof useCreateMedalMutation>;
+export type CreateMedalMutationResult = Apollo.MutationResult<CreateMedalMutation>;
+export type CreateMedalMutationOptions = Apollo.BaseMutationOptions<CreateMedalMutation, CreateMedalMutationVariables>;

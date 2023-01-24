@@ -14,3 +14,20 @@ mutation DeleteMedal ($id: Int!) {
     name
   }
 } 
+
+query OneMedal ($id: Int!) {
+  medal(id: $id) {
+    id
+    name
+    description
+    image
+    requirement
+  }
+}
+
+mutation CreateMedal ($name: String!, $description: String!, $image: String!, $requirement: String!) {
+  createMedal(name: $name, description: $description, image: $image, requirement: $requirement) {
+    id
+    name
+  }
+}
