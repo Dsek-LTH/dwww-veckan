@@ -148,16 +148,17 @@ describe('Medals', () => {
   });
 
   it('deletes a medal', async () => {
+    const id = 3;
     const { body } = await server.executeOperation({
       query: deleteMedal,
       variables: {
-        id: 1,
+        id,
       },
     });
     if (body.kind === 'single') {
       expect(body.singleResult.errors, JSON.stringify(body.singleResult.errors))
         .to.be.undefined;
-      expect(body.singleResult.data?.deleteMedal).to.deep.equal(medals[0]);
+      expect(body.singleResult.data?.deleteMedal).to.deep.equal(medals[id - 1]);
 
       const { body: readBody } = await server.executeOperation({
         query: readAllMedals,
@@ -167,10 +168,13 @@ describe('Medals', () => {
           readBody.singleResult.errors,
           JSON.stringify(readBody.singleResult.errors)
         ).to.be.undefined;
-        expect(readBody.singleResult.data?.medals).to.deep.equal([
-          medals[1],
-          medals[2],
-        ]);
+
+        const medalsWithoutFirst = medals.filter(
+          (medal, idx) => idx + 1 !== id
+        );
+        expect(readBody.singleResult.data?.medals).to.deep.equal(
+          medalsWithoutFirst
+        );
       }
     }
   });
