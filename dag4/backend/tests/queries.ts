@@ -41,3 +41,15 @@ mutation DeleteMedal ($id: Int!) {
   }
 } 
 `;
+
+export const readOneMedal = `
+query OneMedal ($id: Int!) {
+  medal(id: $id) {
+    id
+    name
+    description
+    image
+    requirement
+  }
+}
+`;

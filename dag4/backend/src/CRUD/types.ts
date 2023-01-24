@@ -4,4 +4,7 @@ export type Medal = {
   description: string;
   requirement: string;
   image: string;
+  created_at: Date;
+  updated_at: Date;
+  deleted_at: Date;
 };

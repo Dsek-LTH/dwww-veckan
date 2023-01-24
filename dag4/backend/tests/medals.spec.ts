@@ -8,6 +8,7 @@ import {
   createMedal,
   deleteMedal,
   readAllMedals,
+  readOneMedal,
   updateMedal,
 } from './queries';
 
@@ -175,6 +176,36 @@ describe('Medals', () => {
         expect(readBody.singleResult.data?.medals).to.deep.equal(
           medalsWithoutFirst
         );
+      }
+    }
+  });
+
+  it('deletes a medal and ensures its deleted', async () => {
+    const id = 3;
+    const { body } = await server.executeOperation({
+      query: deleteMedal,
+      variables: {
+        id,
+      },
+    });
+    if (body.kind === 'single') {
+      expect(body.singleResult.errors, JSON.stringify(body.singleResult.errors))
+        .to.be.undefined;
+      expect(body.singleResult.data?.deleteMedal).to.deep.equal(medals[id - 1]);
+
+      const { body: readBody } = await server.executeOperation({
+        query: readOneMedal,
+        variables: {
+          id,
+        },
+      });
+      if (readBody.kind === 'single') {
+        expect(
+          readBody.singleResult.errors,
+          JSON.stringify(readBody.singleResult.errors)
+        ).to.be.undefined;
+
+        expect(readBody.singleResult.data?.medal).to.be.null;
       }
     }
   });
