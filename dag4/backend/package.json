@@ -22,14 +22,16 @@
     "@graphql-codegen/cli": "2.16.4",
     "@graphql-codegen/typescript": "2.8.7",
     "@graphql-codegen/typescript-resolvers": "2.7.12",
-    "@types/node": "^18.11.18"
+    "@types/node": "^18.11.18",
+    "nyc": "^15.1.0"
   },
   "scripts": {
     "compile": "tsc",
     "start": "ts-node ./src/index.ts",
     "generate": "graphql-codegen --config codegen.yml",
     "migrate": "knex migrate:latest",
-    "test": "mocha --exit -r ts-node/register -r tsconfig-paths/register tests/**/*.spec.ts"
+    "test": "mocha --exit -r ts-node/register -r tsconfig-paths/register tests/**/*.spec.ts",
+    "coverage": "nyc mocha --exit -r ts-node/register -r tsconfig-paths/register tests/**/*.spec.ts"
   },
   "keywords": [],
   "author": "",

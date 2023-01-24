@@ -97,6 +97,28 @@ describe('Medals', () => {
     }
   });
 
+  it('updates one field', async () => {
+    const { body } = await server.executeOperation({
+      query: updateMedal,
+      variables: {
+        id: 1,
+        input: {
+          name: 'Updated name',
+        },
+      },
+    });
+    if (body.kind === 'single') {
+      expect(body.singleResult.errors, JSON.stringify(body.singleResult.errors))
+        .to.be.undefined;
+      expect(body.singleResult.data?.updateMedal).to.deep.equal({
+        name: 'Updated name',
+        description: medals[0].description,
+        image: medals[0].image,
+        requirement: medals[0].requirement,
+      });
+    }
+  });
+
   it('updates two fields', async () => {
     const { body } = await server.executeOperation({
       query: updateMedal,
