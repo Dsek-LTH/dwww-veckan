@@ -9,8 +9,8 @@ import { createMedal, readAllMedals } from './queries';
 describe('Medals', () => {
   const server = createApolloServer();
 
-  beforeEach(async () => {
-    await knex('medals').del();
+  before(async () => {
+    await knex('medals').del().truncate();
     await knex('medals').insert(medals);
   });
 
@@ -28,7 +28,17 @@ describe('Medals', () => {
   it('creates a medal', async () => {
     const { body } = await server.executeOperation({
       query: createMedal,
-      variables: { ...medalToCreate },
+      variables: {
+        name: medalToCreate.name,
+        description: medalToCreate.description,
+        image: medalToCreate.image,
+        requirement: medalToCreate.requirement,
+      },
     });
+    if (body.kind === 'single') {
+      expect(body.singleResult.errors, JSON.stringify(body.singleResult.errors))
+        .to.be.undefined;
+      expect(body.singleResult.data?.createMedal).to.deep.equal(medalToCreate);
+    }
   });
 });
